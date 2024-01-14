@@ -54,6 +54,22 @@ public class Place extends Square{
         }
     }
 
+    public boolean mortgage(Player owner){
+        if(this.owner == owner){
+            if(this.mortgaged == false){
+                this.owner.money += this.mortgage;
+                this.mortgaged = true;
+                return true;
+            }else{
+                System.out.println("Sorry this property has already been mortgaged.");
+                return false;
+            }
+        }else{
+            System.out.println("Sorry you don't own this property.");
+            return false;
+        }
+    }
+
 
 
 }
