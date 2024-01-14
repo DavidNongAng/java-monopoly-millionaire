@@ -22,6 +22,7 @@ public class Place extends Square{
         this.name = name;
         this.price = price;
         this.rent = rent;
+        this.initRent = rent;
         this.mortgage = mortgage;
         this.position = position;
     }
@@ -70,6 +71,77 @@ public class Place extends Square{
         }
     }
 
+    public boolean unMortgage(Player owner){
+        if(this.owner == owner){
+            if(this.mortgaged == true){
+                this.owner.money -= this.mortgage;
+                this.mortgaged = false;
+                return false;
+            }else{
+                System.out.println("Sorry this property hasn't been mortgaged.");
+                return false;
+            }
+        }else{
+            System.out.println("Sorry you don't own this property.");
+            return false;
+        }
+    }
 
+    public void changeOwnership(Player newOwner){
+        if(this.owner != null){
+            this.owner = newOwner;
+        }else{
+            System.out.println("Please buy this property first.");
+        }
+    }
+
+    public boolean buildHouse(Player owner){
+        if(owner == this.owner){
+            if(this.owner.money >= (this.price / 2)){
+                this.rent = this.initRent;
+                House house = new House(this, (this.price/2), 1.5, .5 ,.5);
+                this.houses.add(house);
+                this.rentMultiplier += this.houses.get(0).rentMultiplier;
+                this.owner.money -= this.houses.get(0).price;
+                this.rent *= rentMultiplier;
+                return true;
+            }else{
+                System.out.println("Sorry you don't have enough money to buy a house here, it costs $" + this.houses.get(0).price + " and you have $" + this.owner.money + " .");
+                return false;
+            }
+        }else{
+            System.out.println("Sorry you don't own this property.");
+            return false;
+        }
+    }
+
+    public boolean buildHotel(Player player){
+        if(player == this.owner){
+            if(this.houses. get(3) != null && this.owner.money >= this.houses.get(0).price){
+                this.hotel = new Hotel(this, this.houses.get(0).price, 10.00, .5, .5, this.houses.get(0), this.houses.get(1), this.houses.get(2), this.houses.get(3));
+                this.rentMultiplier = this.hotel.rentMultiplier;
+                this.rent = this.initRent;
+                this.rent *= rentMultiplier;
+                this.owner.money -= this.hotel.price;
+                this.houses.clear();
+                return true;
+            }else{
+                System.out.println("Sorry you don't meet the critera to build a hotel on this property.");
+                return false;
+            }
+        }else{
+            System.out.println("Sorry you don't own this property.");
+            return false;
+        }
+    }
+
+    public void payRent(Player renter){
+        renter.money -= this.rent;
+        this.owner.money += this.rent;
+    }
+
+    public String toString(){
+        return ("Name: " + this.name + ", Price: $" + this.price + ", Rent: $" + this.rent + ", Owner: " + this.owner.name + ".");
+    }
 
 }
