@@ -1,4 +1,11 @@
-public class ActionSquare extends Square{
+/*
+    David Nong-Ang
+    2024/01/15
+    ActionSquare Class
+    This subclass is used for the tiles on the board that has a prompt for the user.
+ */
+
+public class ActionSquare extends Square{ //subclass inherited from the parent class "Square"
 
     //Instance Variable
     public final int length;

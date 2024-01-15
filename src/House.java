@@ -1,3 +1,10 @@
+/*
+    David Nong-Ang
+    2024/01/15
+    House Class
+    This class is used to make houses for properties owned by players.
+ */
+
 public class House {
 
     //Instance Variables
@@ -15,6 +22,7 @@ public class House {
         this.rentMultiplier = multiplier;
     }
 
+    //Overloading Constructor
     public House(Place place, int price, double multiplier, double length, double width) {
         this.place = place;
         this.price = price;
@@ -24,10 +32,13 @@ public class House {
     }
 
     //Methods
+
+    //This method returns the name of the place.
     public String getPlace() {
         return this.place.name;
     }
 
+    //This method returns a string containing all the information on the house.
     public String toString() {
         return ("Property: " + this.place.name + ", Price: $" + this.price + ", Rent Multiplier: " + this.rentMultiplier + ".");
     }

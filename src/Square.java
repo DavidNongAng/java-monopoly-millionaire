@@ -1,3 +1,10 @@
+/*
+    David Nong-Ang
+    2024/01/15
+    Square Class
+    This class is for each tile around the board of the game.
+ */
+
 public class Square {
 
     //Instance Variables
@@ -9,4 +16,5 @@ public class Square {
         this.name = name;
         this.position = position;
     }
+
 }

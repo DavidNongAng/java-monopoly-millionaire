@@ -1,3 +1,10 @@
+/*
+    David Nong-Ang
+    2024/01/15
+    Monopoly Millionaire Project
+    This is the main class for the code.
+ */
+
 import java.io.*;
 import java.util.*;
 import java.io.*;
