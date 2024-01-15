@@ -157,6 +157,34 @@ public class Place extends Square{ //subclass inherited from the parent class "S
         this.owner.money += this.rent; //add the money to the owner of the property.
     }
 
+    //This method is used to initialize all the places on the board into an arraylist and returns it.
+    public static ArrayList<Place> initializePlace(){
+        ArrayList<Place> places = new ArrayList<>();
+        places.add(new Place("Motor Drive", 5000, 7000, 5000, 2));
+        places.add(new Place("Gadget Wharf", 5000, 7000, 5000, 4));
+        places.add(new Place("Surfer's Cove", 15000, 15000, 10000, 5));
+        places.add(new Place("Aqua Park Resort", 15000, 15000, 10000, 7));
+        places.add(new Place("Lakeside Marina", 20000, 15000, 10000, 8));
+        places.add(new Place("Castle View", 35000, 90000, 20000, 10));
+        places.add(new Place("Dream Avenue", 35000, 20000, 20000, 11));
+        places.add(new Place("Palace Gardens", 40000, 20000, 20000, 12));
+        places.add(new Place("Adventrure Park", 55000, 25000, 25000, 13));
+        places.add(new Place("Themepark City", 55000, 25000, 25000, 15));
+        places.add(new Place("Movie District", 60000, 25000, 25000, 16));
+        places.add(new Place("Style Square", 80000, 35000, 35000, 18));
+        places.add(new Place("Party Plaza", 80000, 35000, 35000, 20));
+        places.add(new Place("Showtime Boulevard", 90000, 35000, 35000, 21));
+        places.add(new Place("Sunshine Bay", 115000, 40000, 40000, 22));
+        places.add(new Place("Bling Beach", 115000, 40000, 40000, 23));
+        places.add(new Place("Yacht Harbor", 120000, 40000, 40000, 24));
+        places.add(new Place("Treetop Retreat", 145000, 50000, 50000, 26));
+        places.add(new Place("Ski Mountain", 145000, 50000, 50000, 27));
+        places.add(new Place("Diamond Hills", 150000, 50000, 50000, 29));
+        places.add(new Place("Fortune Valley", 170000, 65000, 65000, 31));
+        places.add(new Place("Paradise Island", 200000, 65000, 65000, 32));
+        return places;
+    }
+
     //This function returns a String with the place's information.
     public String toString(){
         return ("Name: " + this.name + ", Price: $" + this.price + ", Rent: $" + this.rent + ", Owner: " + this.owner.name + ".");
