@@ -18,7 +18,7 @@ public class Main {
     //Public Variables
     public static String username = null;
     public static String userInput = null;
-    public static int menuSelect = 0;
+    public static int menuChoice = 0;
     public static int gameLoop = 0;
     public static boolean menuError = false;
     public static String currentTile = null;
@@ -63,6 +63,28 @@ public class Main {
         //Card Object
         Card chanceCards = new Card(100, 100, 1, "Chance");
         Card lifeStyleCards = new Card(100, 100, 2, "LifeStyle");
+
+        do{
+            menuChoice = Functions.printMenuSelect();
+
+            if(menuChoice == 1){
+                System.out.println("Welcome to Monopoly Millionaire, you start off with $372K and the goal is to achieve 1 Million $ before the three other opponents: AI 1, AI 2, AI 3.");
+                gameLoop = menuChoice;
+
+                while(gameLoop == 1 && !gameOver){
+
+                }
+
+            }else if(menuChoice == 2){
+                Functions.printInfoScreen();
+            }else if(menuChoice == 3){
+                System.out.println("Thanks for playing! Have a good day. ");
+                break;
+            }else{
+                System.out.println("User's input is invalid, try again!");
+            }
+        }while(menuChoice != 0);
+
 
 
 
