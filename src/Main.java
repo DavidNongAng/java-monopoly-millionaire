@@ -64,77 +64,42 @@ public class Main {
         Card chanceCards = new Card(100, 100, 1, "Chance");
         Card lifeStyleCards = new Card(100, 100, 2, "LifeStyle");
 
-        do{
-            menuChoice = Functions.printMenuSelect();
+        //Print Logo
+        Functions.printSprite();
 
-            if(menuChoice == 1){
-                System.out.println("Welcome to Monopoly Millionaire, you start off with $372K and the goal is to achieve 1 Million $ before the three other opponents: AI 1, AI 2, AI 3.");
-                gameLoop = menuChoice;
+        //Welcome Message
+        System.out.println("\nWelcome to Monopoly Millionaire\n");
 
-                while(gameLoop == 1 && !gameOver){
+        //Print the start menu.
+        Functions.printMainMenu();
 
+        //Menu Option 2 - Display Game Information
+        while(menuChoice == 2){
+            Functions.printInfoScreen();
+            menuChoice = 0;
+            Functions.printMainMenu();
+        }
 
-                    if(p1.jail){
-                        menuChoice = 0;
-                        Functions.printJailMenu();
-                        if(menuChoice == 1){
-                            System.out.println("You decided to pay for the bail, you lose $50,000");
-                            p1.jail = false;
-                        }
-                        if(menuChoice == 2){
-                            System.out.println("You have chosen to roll for doubles. \nPress enter to roll: ");
-                            diceOne.roll();
-                            diceTwo.roll();
+        //Menu Option 3 - Exit program.
+        if(menuChoice == 3)
+            System.out.println("Thanks for playing!");
 
-                            Functions.printDice(diceOne);
-                            Functions.printDice(diceTwo);
+        if(menuChoice == 1){
 
-                            if(diceOne.lastRoll() == diceTwo.lastRoll()){
-                                System.out.println("Congratulations, you rolled doubles! You are now out of jail.");
-                                p1.jail = false;
-                            }else{
-                                System.out.println("You did not roll doubles. Better luck next time.");
-                            }
+            //Start Message
+            System.out.println("You will begin with $372,000 and the goal is to make $1,000,000 before the three other opponents: AI 1, AI 2, AI 3");
 
-                        }
-                    }
-
-                    if(p1.money >= 1000000)
-                        Functions.victoryScreen();
-                    if(p1.money <= 0)
-                        Functions.lostScreen();
-
-
-                    if(!p1.jail){
-                        System.out.println("It is your turn. Press ENTER to roll: ");
-                        input.nextLine();
-                        p1.move(diceOne.roll() + diceTwo.roll());
-                        //Main.printBoard();
-                        if(p1.position > 32){
-                            p1.position -= 32;
-                            p1.money += 200000;
-                            System.out.println("Congratulations! You passed 'GO' and gained $200,000 ");
-                            Functions.showMoney(p1);
-                        }
-
-                    }
-
-
-                }
-
-            }else if(menuChoice == 2){
-                Functions.printInfoScreen();
-            }else if(menuChoice == 3){
-                System.out.println("Thanks for playing! Have a good day. ");
-                break;
-            }else{
-                System.out.println("User's input is invalid, try again!");
-            }
-        }while(menuChoice != 0);
+            gameLoop = menuChoice;
+            while(gameLoop == 1 && !gameOver){
 
 
 
 
+
+
+
+            }//end while loop
+        }//end if loop
 
     }
 }

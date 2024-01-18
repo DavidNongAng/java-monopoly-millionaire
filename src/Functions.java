@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.util.ArrayList;
+
 public class Functions {
 
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
@@ -20,29 +23,22 @@ public class Functions {
         return username;
     }
 
-    public static int printMenuSelect(){
-        System.out.println("\nWelcome to Monopoly Millionaire\n");
-        System.out.println("1. Play");
-        System.out.println("2. Information");
-        System.out.println("3. Exit Program\n");
+    public static void printMainMenu(){
+        System.out.println("1. Play\n2. Information\n3. Exit Program\n");
         while(Main.menuChoice < 1 || Main.menuChoice > 3){
             try{
                 if(Main.menuError){
                     System.out.println("Sorry, please enter a valid input (enter a number): \n");
-                    System.out.println("1. Play");
-                    System.out.println("2. Information");
-                    System.out.println("3. Exit Program\n");
+                    System.out.println("1. Play\n2. Information\n3. Exit Program\n");
                 }
                 Main.menuError = true;
                 Main.userInput = Main.input.nextLine();
                 Main.menuChoice = Integer.parseInt(Main.userInput);
-
             }catch(NumberFormatException err){
                 Main.menuChoice = 0;
             }
         }
         Main.menuError = false;
-        return Main.menuChoice;
     }
 
     public static void printInfoScreen(){
@@ -55,15 +51,11 @@ public class Functions {
 
     public static void printJailMenu(){
         System.out.println("You are in jail! You may either roll for doubles or pay the bail of $50,000");
-        System.out.println("Please choose an option (Enter a number): \n");
-        System.out.println("1. Pay Bail");
-        System.out.println("2. Roll for Doubles.\n");
+        System.out.println("Please choose an option (Enter a number): \n1. Pay Bail\n2. Roll for Doubles.\n");
         while(Main.menuChoice < 1 || Main.menuChoice > 2){
             try{
-                if(Main.menuError == true){
-                    System.out.println("Please enter a valid input (Enter a number): ");
-                    System.out.println("1. Pay Bail");
-                    System.out.println("2. Roll for Doubles\n");
+                if(Main.menuError){
+                    System.out.println("Please enter a valid input (Enter a number):  \n1. Pay Bail\n2. Roll for Doubles.\n");
                 }
                 Main.menuError = true;
                 Main.userInput = Main.input.nextLine();
@@ -77,21 +69,11 @@ public class Functions {
     }
 
     public static void printEndTurnMenu(){
-        System.out.println("\nYour turn is over, please choose an option: (Enter a number): \n");
-        System.out.println("1. Mortgage Property");
-        System.out.println("2. Unmortgage Property");
-        System.out.println("3. Build Houses/Hotels");
-        System.out.println("4. List Owned Places");
-        System.out.println("5. End Turn \n");
+        System.out.println("\nYour turn is over, please choose an option: (Enter a number): \n1. Mortgage Property\n2. Unmortgage Property\n3. Build Houses/Hotels\n4. List Owned Places\n5. End Turn \n");
         while(Main.menuChoice < 1 || Main.menuChoice > 5){
             try{
                 if(Main.menuError){
-                    System.out.println("\nYour turn is over, please choose an option: (Enter a number): \n");
-                    System.out.println("1. Mortgage Property");
-                    System.out.println("2. Unmortgage Property");
-                    System.out.println("3. Build Houses/Hotels");
-                    System.out.println("4. List Owned Places");
-                    System.out.println("5. End Turn \n");
+                    System.out.println("\nYour turn is over, please choose an option: (Enter a number): \n1. Mortgage Property\n2. Unmortgage Property\n3. Build Houses/Hotels\n4. List Owned Places\n5. End Turn \n");
                 }
                 Main.menuError = true;
                 Main.userInput = Main.input.nextLine();
@@ -105,15 +87,11 @@ public class Functions {
     }
 
     public static void printBuyMenu(){
-        System.out.println("Please choose an option (enter a number): \n");
-        System.out.println("1. Buy");
-        System.out.println("2. Don't Buy\n");
+        System.out.println("Please choose an option (enter a number): \n1. Buy\n2. Don't Buy\n");
         while(Main.menuChoice < 1 || Main.menuChoice > 2){
             try{
                 if(Main.menuError){
-                    System.out.println("Sorry please enter a valid input (Enter a number): \n");
-                    System.out.println("1. Buy");
-                    System.out.println("2. Don't Buy\n");
+                    System.out.println("Sorry please enter a valid input (Enter a number): \n1. Buy\n2. Don't Buy\n");
                 }
                 Main.menuError = true;
                 Main.userInput = Main.input.nextLine();
@@ -127,17 +105,11 @@ public class Functions {
     }
 
     public static void printTurnScreen(){
-        System.out.println("\nPlease choose an option (Enter an integer): \n");
-        System.out.println("1. Roll");
-        System.out.println("2. Information");
-        System.out.println("3. Exit\n");
+        System.out.println("\nPlease choose an option (Enter an integer): \n1. Roll\n2. Information\n3. Exit\n");
         while(Main.menuChoice < 1 || Main.menuChoice > 3){
             try{
                 if(Main.menuError){
-                    System.out.println("Sorry, please enter a valid input (Enter an integer): \n");
-                    System.out.println("1. Play");
-                    System.out.println("2. Information");
-                    System.out.println("3. Exit\n");
+                    System.out.println("Sorry, please enter a valid input (Enter an integer): \n1. Roll\n2. Information\n3. Exit\n");
                 }
                 Main.menuError = true;
                 Main.userInput = Main.input.nextLine();
@@ -229,6 +201,180 @@ public class Functions {
         System.out.println(" ----- ");
     } // End of printDice6
 
+    public static void playerInJail(Player player, Dice d1, Dice d2){
+        if(player.jail){
+            Main.menuChoice = 0;
+            printJailMenu();
+            if(Main.menuChoice == 1){
+                System.out.println("You chose to pay for bail, you lose $50,000.");
+            }
+            if(Main.menuChoice == 2){
+                System.out.println("You chose to roll for doubles. \nPress ENTER to roll:");
+                d1.roll();
+                d2.roll();
+                printDice(d1);
+                printDice(d2);
+                if(d1.lastRoll() == d2.lastRoll()){
+                    System.out.println("Congratulations, You rolled doubles! You are now out of jail.");
+                    player.jail = false;
+                }else{
+                    System.out.println("You did not roll doubles. Better luck next time.");
+                }
+            }
+        }
+    }
+
+    public static void checkMillion(Player player){
+        if(player.money>=1000000)
+            victoryScreen();
+        if(player.money<=0)
+            lostScreen();
+    }
+
+    public static void playerTurn(Player player, Dice d1, Dice d2, Dice cardRNG, ArrayList<Square> tiles, Card chanceCards, Card lifeStyleCards){
+        if(!player.jail){
+            System.out.println("It is now your turn. Press enter to roll: ");
+            Main.input.nextLine();
+            player.move(d1.roll() + d2.roll());
+            if(player.position > 32){
+                player.position -= 32;
+                player.money += 200000;
+                System.out.println("Congratulations! You have passed 'Go' and gained $200,000!");
+                showMoney(player);
+            }
+            printDice(d1);
+            printDice(d2);
+            System.out.println("You rolled: " + (d1.lastRoll() + d2.lastRoll()) + ".");
+            for(int i  = 0; i < 32; i++){
+                if(player.position == tiles.get(i).position)
+                    Main.currentTile = tiles.get(i).name;
+            }
+            System.out.println("You are now at position: " + player.position + " and landed on " + Main.currentTile + ".");
+            for(int i = 0; i < 32; i++){
+                if(player.position == tiles.get(i).position){
+                    if(tiles.get(i) instanceof Place){
+                        if(((Place)tiles.get(i)).owner != null && ((Place)tiles.get(i)).owner != player){
+                            System.out.println("You landed on someone else's property, you must pay rent. ");
+                            ((Place)tiles.get(i)).payRent(player);
+                            showMoney(player);
+                            break;
+                        }
+                        if(((Place)tiles.get(i)).owner == player){
+                            System.out.println("You landed on your own property, nothing happens. \nPress ENTER to continue: ");
+                            Main.input.nextLine();
+                            break;
+                        }
+                        if(((Place)tiles.get(i)).owner == null){
+                            System.out.println(tiles.get(i).name + " is unowned. Would you like to buy it? ");
+                            Main.menuChoice = 0;
+                            printBuyMenu();
+                            if(Main.menuChoice == 1){
+                                ((Place)tiles.get(i)).buy(player);
+                                System.out.println("You have purchased " + ((Place)tiles.get(i)).name + "!");
+                                showMoney(player);
+                                System.out.println("Press ENTER to continue: ");
+                                Main.input.nextLine();
+                                break;
+                            }
+                            if(Main.menuChoice == 2){
+                                System.out.println("You decided not to buy the property.\nPress ENTER to continue: ");
+                                Main.input.nextLine();
+                                break;
+                            }
+                        }
+                    }
+                    if(tiles.get(i) instanceof ActionSquare){
+                        if(((ActionSquare)tiles.get(i)).name == "Chance"){
+                            cardRNG.roll();
+                            switch (cardRNG.lastRoll()){
+                                case 1:
+                                    chanceCards.chance1(player);
+                                    break;
+                                case 2:
+                                    chanceCards.chance2(player);
+                                    break;
+                                case 3:
+                                    chanceCards.chance3(player);
+                                    break;
+                                case 4:
+                                    chanceCards.chance4(player);
+                                    break;
+                                case 5:
+                                    chanceCards.chance5(player);
+                                    break;
+                            }
+                        }
+                        if(((ActionSquare)tiles.get(i)).name == "Millionaire LifeStyle"){
+                            cardRNG.roll();
+                            switch (cardRNG.lastRoll()){
+                                case 1:
+                                    lifeStyleCards.lifeStyle1(player);
+
+                                case 2:
+                                    lifeStyleCards.lifeStyle2(player);
+                                    break;
+                                case 3:
+                                    lifeStyleCards.lifeStyle3(player);
+                                    break;
+                                case 4:
+                                    lifeStyleCards.lifeStyle4(player);
+                                    break;
+                                case 5:
+                                    lifeStyleCards.lifeStyle5(player);
+                                    break;
+                            }
+                        }
+                        if(((ActionSquare)tiles.get(i)).name == "Go"){
+                            System.out.println("You are on 'Go', nothing happens. \nPress ENTER to continue:");
+                            Main.input.nextLine();
+                            break;
+                        }
+                        if(((ActionSquare)tiles.get(i)).name == "Go To Jail"){
+                            player.position = 9;
+                            player.jail = true;
+                            System.out.println("You are now in jail.\nPress enter to continue: ");
+                            Main.input.nextLine();
+                            break;
+                        }
+                        if(((ActionSquare)tiles.get(i)).name == "Free Parking"){
+                            System.out.println("You are on 'Free Parking', nothing happens.\nPress enter to continue: ");
+                            Main.input.nextLine();
+                            break;
+                        }
+                        if(((ActionSquare)tiles.get(i)).name == "Jail"){
+                            System.out.println("You are on 'Just Visiting', nothing happens.\nPress enter to continue: ");
+                            Main.input.nextLine();
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    //Function for when player lands on a property
+    //Function for when player lands on a action property
+    //Function for roll doubles
+    //
+
+    public static void printSprite(){
+        System.out.println();
+        System.out.println("███╗░░░███╗░█████╗░███╗░░██╗░█████╗░██████╗░░█████╗░██╗░░░░░██╗░░░██╗");
+        System.out.println("████╗░████║██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔══██╗██║░░░░░╚██╗░██╔╝");
+        System.out.println("██╔████╔██║██║░░██║██╔██╗██║██║░░██║██████╔╝██║░░██║██║░░░░░░╚████╔╝░");
+        System.out.println("██║╚██╔╝██║██║░░██║██║╚████║██║░░██║██╔═══╝░██║░░██║██║░░░░░░░╚██╔╝░░");
+        System.out.println("██║░╚═╝░██║╚█████╔╝██║░╚███║╚█████╔╝██║░░░░░╚█████╔╝███████╗░░░██║░░░");
+        System.out.println("╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚══╝░╚════╝░╚═╝░░░░░░╚════╝░╚══════╝░░░╚═╝░░░");
+        System.out.println();
+        System.out.println("███╗░░░███╗██╗██╗░░░░░██╗░░░░░██╗░█████╗░███╗░░██╗░█████╗░██╗██████╗░███████╗");
+        System.out.println("████╗░████║██║██║░░░░░██║░░░░░██║██╔══██╗████╗░██║██╔══██╗██║██╔══██╗██╔════╝");
+        System.out.println("██╔████╔██║██║██║░░░░░██║░░░░░██║██║░░██║██╔██╗██║███████║██║██████╔╝█████╗░░");
+        System.out.println("██║╚██╔╝██║██║██║░░░░░██║░░░░░██║██║░░██║██║╚████║██╔══██║██║██╔══██╗██╔══╝░░");
+        System.out.println("██║░╚═╝░██║██║███████╗███████╗██║╚█████╔╝██║░╚███║██║░░██║██║██║░░██║███████╗");
+        System.out.println("╚═╝░░░░░╚═╝╚═╝╚══════╝╚══════╝╚═╝░╚════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚═╝╚═╝░░╚═╝╚══════╝");
+    }
+
     public static void victoryScreen(){
         System.out.println("██╗░░░██╗░█████╗░██╗░░░██╗░██╗░░░░░░░██╗░█████╗░███╗░░██╗██╗");
         System.out.println("╚██╗░██╔╝██╔══██╗██║░░░██║░██║░░██╗░░██║██╔══██╗████╗░██║██║");
@@ -236,9 +382,8 @@ public class Functions {
         System.out.println("░░╚██╔╝░░██║░░██║██║░░░██║░░████╔═████║░██║░░██║██║╚████║╚═╝");
         System.out.println("░░░██║░░░╚█████╔╝╚██████╔╝░░╚██╔╝░╚██╔╝░╚█████╔╝██║░╚███║██╗");
         System.out.println("░░░╚═╝░░░░╚════╝░░╚═════╝░░░░╚═╝░░░╚═╝░░░╚════╝░╚═╝░░╚══╝╚═╝");
-        System.out.println("Congratulations on your victory! Thanks for playing!");
+        System.out.println("Congratulations! Thanks for playing!");
         System.out.println("The program will now end, press 'run' if you wish to play again.");
-        System.out.println("Thanks for playing!");
     }
 
     public static void lostScreen(){
@@ -250,7 +395,6 @@ public class Functions {
         System.out.println("╚═╝░░╚══╝╚═╝░╚════╝░╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝");
         System.out.println("Nice try! Thanks for playing!");
         System.out.println("The program will now end, press 'run' if you wish to play again.");
-        System.out.println("Thanks for playing!");
     }
 
 
