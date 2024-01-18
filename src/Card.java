@@ -33,7 +33,7 @@ public class Card {
     public void chance2(Player player){
         System.out.println("Donation!\nDonate $50,000 to the local animal shelter. ");
         player.money -= 50000;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 
     //This method takes a Player object as a parameter and puts them in jail.
@@ -59,34 +59,34 @@ public class Card {
     public void lifeStyle1(Player player){
         System.out.println("Crypto Genius!\nPlayer Gains 25% of their current money.");
         player.money *= 1.25;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 
     //This method takes a Player object as a parameter and decreases their money by 0.75.
     public void lifeStyle2(Player player){
         System.out.println("Stocks Crash!\nPlayer Loses 25% of their current money.");
         player.money *= 0.75;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 
     //This method takes a Player object as a parameter and decreases their money by 100000.
     public void lifeStyle3(Player player){
         System.out.println("Party Gone Wrong!\nPlayer hosts a celebrity party and loses $100,000 from property damage");
         player.money -= 100000;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 
     //This method takes a Player object as a parameter and increases their money by 200000.
     public void lifeStyle4(Player player){
         System.out.println("Buy low Sell High?\nPlayer makes a profit of $200,000 from stocks");
         player.money += 200000;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 
     //This method takes a Player object as a parameter and increases their money by 250000.
     public void lifeStyle5(Player player){
         System.out.println("Business is Blooming!\nPlayer opens a small business and earns $250,000.");
         player.money += 250000;
-        Main.showMoney(player);
+        Functions.showMoney(player);
     }
 }

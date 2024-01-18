@@ -72,10 +72,54 @@ public class Main {
                 gameLoop = menuChoice;
 
                 while(gameLoop == 1 && !gameOver){
+
+
                     if(p1.jail){
                         menuChoice = 0;
+                        Functions.printJailMenu();
+                        if(menuChoice == 1){
+                            System.out.println("You decided to pay for the bail, you lose $50,000");
+                            p1.jail = false;
+                        }
+                        if(menuChoice == 2){
+                            System.out.println("You have chosen to roll for doubles. \nPress enter to roll: ");
+                            diceOne.roll();
+                            diceTwo.roll();
+
+                            Functions.printDice(diceOne);
+                            Functions.printDice(diceTwo);
+
+                            if(diceOne.lastRoll() == diceTwo.lastRoll()){
+                                System.out.println("Congratulations, you rolled doubles! You are now out of jail.");
+                                p1.jail = false;
+                            }else{
+                                System.out.println("You did not roll doubles. Better luck next time.");
+                            }
+
+                        }
+                    }
+
+                    if(p1.money >= 1000000)
+                        Functions.victoryScreen();
+                    if(p1.money <= 0)
+                        Functions.lostScreen();
+
+
+                    if(!p1.jail){
+                        System.out.println("It is your turn. Press ENTER to roll: ");
+                        input.nextLine();
+                        p1.move(diceOne.roll() + diceTwo.roll());
+                        //Main.printBoard();
+                        if(p1.position > 32){
+                            p1.position -= 32;
+                            p1.money += 200000;
+                            System.out.println("Congratulations! You passed 'GO' and gained $200,000 ");
+                            Functions.showMoney(p1);
+                        }
 
                     }
+
+
                 }
 
             }else if(menuChoice == 2){
