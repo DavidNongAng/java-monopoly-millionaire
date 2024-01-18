@@ -72,7 +72,10 @@ public class Main {
                 gameLoop = menuChoice;
 
                 while(gameLoop == 1 && !gameOver){
+                    if(p1.jail){
+                        menuChoice = 0;
 
+                    }
                 }
 
             }else if(menuChoice == 2){

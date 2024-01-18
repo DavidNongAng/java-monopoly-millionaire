@@ -42,8 +42,56 @@ public class Functions {
         System.out.println("The first player to reach the goal of 1 Million dollars is the winner!");
     }
 
+    public static void printJailMenu(){
+        System.out.println("You are in jail! You may either roll for doubles or pay the bail of $50,000");
+        System.out.println("Please choose an option (enter a number): \n");
+        System.out.println("1. Pay Bail");
+        System.out.println("2. Roll for Doubles.\n");
+        while(Main.menuChoice < 1 || Main.menuChoice > 2){
+            try{
+                if(Main.menuError == true){
+                    System.out.println("Please enter a valid input (enter a number): ");
+                    System.out.println("1. Pay Bail");
+                    System.out.println("2. Roll for Doubles\n");
+                }
+                Main.menuError = true;
+                Main.userInput = Main.input.nextLine();
+                Main.menuChoice = Integer.parseInt(Main.userInput);
+                System.out.println();
+            }catch(NumberFormatException err){
+                Main.menuChoice = 0;
+            }
+        }
+        Main.menuError = false;
+    }
 
-
+    public static void printEndTurnMenu(){
+        System.out.println("\nYour turn is over, please choose an option: (Enter number): \n");
+        System.out.println("1. Mortgage Property");
+        System.out.println("2. Unmortgage Property");
+        System.out.println("3. Build Houses/Hotels");
+        System.out.println("4. List Owned Places");
+        System.out.println("5. End Turn \n");
+        while(Main.menuChoice < 1 || Main.menuChoice > 5){
+            try{
+                if(Main.menuError){
+                    System.out.println("\nYour turn is over, please choose an option: (Enter number): \n");
+                    System.out.println("1. Mortgage Property");
+                    System.out.println("2. Unmortgage Property");
+                    System.out.println("3. Build Houses/Hotels");
+                    System.out.println("4. List Owned Places");
+                    System.out.println("5. End Turn \n");
+                }
+                Main.menuError = true;
+                Main.userInput = Main.input.nextLine();
+                Main.menuChoice = Integer.parseInt(Main.userInput);
+                System.out.println();
+            }catch(NumberFormatException err){
+                Main.menuChoice = 0;
+            }
+        }
+        Main.menuError = false;
+    }
 
 
 }
