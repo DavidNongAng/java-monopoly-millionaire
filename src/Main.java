@@ -92,10 +92,10 @@ public class Main {
             gameLoop = menuChoice;
             while(gameLoop == 1 && !gameOver){
 
-
-
-
-
+                Functions.playerTurns(p1,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards, places);
+                Functions.cpuTurns(cpu1,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
+                Functions.cpuTurns(cpu2,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
+                Functions.cpuTurns(cpu3,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
 
 
             }//end while loop
