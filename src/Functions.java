@@ -103,25 +103,7 @@ public class Functions {
         Main.menuError = false;
     }
 
-
-    public static void printTurnScreen(){
-        System.out.println("\nPlease choose an option (Enter an integer): \n1. Roll\n2. Information\n3. Exit\n");
-        while(Main.menuChoice < 1 || Main.menuChoice > 3){
-            try{
-                if(Main.menuError){
-                    System.out.println("Sorry, please enter a valid input (Enter an integer): \n1. Roll\n2. Information\n3. Exit\n");
-                }
-                Main.menuError = true;
-                Main.userInput = Main.input.nextLine();
-                Main.menuChoice = Integer.parseInt(Main.userInput);
-                System.out.println();
-            }catch(NumberFormatException err){
-                Main.menuChoice = 0;
-            }
-        }
-        Main.menuError = false;
-    }
-
+    //This function takes a Player object as a parameter and displays their money.
     public static void showMoney(Player p1){
         if(p1 instanceof HumanPlayer){
             System.out.println("You have $" + p1.money + ".");
@@ -130,6 +112,7 @@ public class Functions {
         }
     }
 
+    //This function takes a Player object as a parameter and check's if they passed the "Go" tile on the board and gives them money.
     public static void checkGo(Player p1){
         if (p1.position > 32) { // Check if they pass the Start Position.
             p1.position -= 32;
@@ -139,6 +122,7 @@ public class Functions {
         }
     }
 
+    //This function takes a Player object as a parameter and check's if they have achieved $1 Million or have no money and displays a screen depending on it.
     public static void checkMillion(Player player){
         if(player.money>=1000000)
             victoryScreen();
@@ -146,21 +130,26 @@ public class Functions {
             lostScreen();
     }
 
+    //This function takes a Player object and 2 Dice objects as parameters and is used for when the user is in jail.
     public static void playerJail(Player player, Dice d1, Dice d2){
+        //Checks if the player is in jail.
         if(player.jail){
             Main.menuChoice = 0;
-            printJailMenu();
+            printJailMenu(); //Display the jail menu.
+
+            //If the user chooses to pay to get out of jail.
             if(Main.menuChoice == 1){
                 System.out.println("You chose to pay for bail, you lose $50,000.");
                 player.jail = false;
             }
+            //If the user chooses to roll their dices for doubles to get out of jail.
             if(Main.menuChoice == 2){
                 System.out.println("You chose to roll for doubles. \nPress ENTER to roll:");
                 d1.roll();
                 d2.roll();
                 printDice(d1);
                 printDice(d2);
-                if(d1.lastRoll() == d2.lastRoll()){
+                if(d1.lastRoll() == d2.lastRoll()){ //Checks if they got a double.
                     System.out.println("Congratulations, You rolled doubles! You are now out of jail.");
                     player.jail = false;
                 }else{
@@ -170,11 +159,12 @@ public class Functions {
         }
     }
 
+    //This function takes a lot of different class objects as its parameter and runs the player's turn in the game.
     public static void playerTurns(Player p1, Dice rng, Dice d1, Dice d2, ArrayList<Square> tiles, Dice cardRNG, Card chanceCards, Card lifeStyleCards, ArrayList<Place> places){
         //Check if the player is in jail.
         playerJail(p1, d1, d2);
 
-        //Check if they achieved 1 Million
+        //Check if they achieved 1 Million or bankrupted.
         checkMillion(p1);
 
         //When player is not in jail.
@@ -182,11 +172,16 @@ public class Functions {
             System.out.println("It is now your turn. Press ENTER to roll: ");
             Main.input.nextLine();
             p1.move(d1.roll() + d2.roll());
-            mainGame(p1, rng, d1, d2, tiles, cardRNG, chanceCards, lifeStyleCards);
-            rollDoubles(p1, rng, d1, d2, tiles, cardRNG, chanceCards, lifeStyleCards);
+            mainGame(p1, rng, d1, d2, tiles, cardRNG, chanceCards, lifeStyleCards); //Runs the function for the main game.
+            rollDoubles(p1, rng, d1, d2, tiles, cardRNG, chanceCards, lifeStyleCards); //Runs the function for when the user rolls a double.
         }
         Main.menuChoice = 0;
-        printEndTurnMenu();
+        endTurn(p1, places); //Runs the function for after their turn ends, if they want to do anything after.
+    }//end function
+
+    //This function 
+    public static void endTurn(Player p1, ArrayList<Place> places){
+        printEndTurnMenu(); //Display choices after their turn ends.
         while(Main.menuChoice != 5){
             if(Main.menuChoice != 4){
                 printEndTurnMenu();
@@ -288,7 +283,7 @@ public class Functions {
                 break;
             }
         } //end while loop
-    }//end function
+    }
 
     public static void cpuJail(Player cpu, Dice rng, Dice d1, Dice d2){
         if(cpu.jail && !(cpu.money <= 0)){

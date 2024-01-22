@@ -90,9 +90,12 @@ public class Main {
             System.out.println("You will begin with $372,000 and the goal is to make $1,000,000 before the three other opponents: AI 1, AI 2, AI 3");
 
             gameLoop = menuChoice;
-            while(gameLoop == 1 && !gameOver){
+            while(gameLoop == 1 && !gameOver){ //Loop while the conditions is true.
 
+                //Runs the user's turn
                 Functions.playerTurns(p1,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards, places);
+
+                //runs the 3 CPU's turn.
                 Functions.cpuTurns(cpu1,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
                 Functions.cpuTurns(cpu2,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
                 Functions.cpuTurns(cpu3,rng,diceOne, diceTwo, tiles, cardRNG, chanceCards, lifeStyleCards);
